@@ -33,6 +33,7 @@ Route::group([
              ->name('competition_prizes.export.receipt');
         Route::get('competition_prizes/export_prizesheet', 'CompetitionPrizes\ExportController@prizesheet')
              ->name('competition_prizes.export.prizesheet');
+	    Route::get('competition_prizes/export_ascii', 'CompetitionPrizes\ExportController@ascii')->name('competition_prizes.export.ascii');
         Route::resource('competition_prizes', 'CompetitionPrizesController');
         Route::get('votes/playlist', 'Votes\PlaylistsController@index')
              ->name('votes.playlist.index');

@@ -86,6 +86,10 @@
                 {!! form_row($form->config_file) !!}
             @endif
             {!! form_row($form->final_file_media_id) !!}
+            {!! form_row($form->playable_file_id_1) !!}
+            {!! form_row($form->playable_file_id_2) !!}
+            {!! form_row($form->playable_file_id_3) !!}
+            {!! form_row($form->playable_file_id_4) !!}
         </div>
         <!-- /.box-body -->
     </div>

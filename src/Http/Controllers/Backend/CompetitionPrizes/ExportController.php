@@ -132,4 +132,50 @@ class ExportController extends Controller
             $pdf->Close();
         }, $filename);
     }
+
+	/**
+	 * @param CompetitionPrizeRequest $request
+	 * @return StreamedResponse
+	 * @throws \setasign\Fpdi\PdfParser\CrossReference\CrossReferenceException
+	 * @throws \setasign\Fpdi\PdfParser\Filter\FilterException
+	 * @throws \setasign\Fpdi\PdfParser\PdfParserException
+	 * @throws \setasign\Fpdi\PdfParser\Type\PdfTypeException
+	 * @throws \setasign\Fpdi\PdfReader\PdfReaderException
+	 */
+	public function ascii(CompetitionPrizeRequest $request)
+	{
+		$competitions = Competition::where('has_prizegiving', true)
+		                           ->orderBy('prizegiving_sort_position', 'DESC')
+		                           ->get();
+
+		if ($competitions->count() == 0) {
+			// FIXME
+			die("no competitions");
+		}
+
+		$results = VoteService::getAllVotesByRank('DESC');
+		ob_start();
+		foreach ($results as $competition) {
+			print strtolower($competition['name']) . ":\n";
+			print "- -------------------------------------------------------------------------- -\n";
+			foreach ($competition['entries'] as $entry) {
+				print sprintf('%02d', $entry['rank']);
+				print "  ";
+				print $entry['points'];
+				print " ";
+				print $entry['title'];
+				print " by ";
+				print $entry['author'];
+				print "\n";
+			}
+			print "\n\n";
+		}
+		$ascii = ob_get_contents();
+		ob_end_clean();
+
+		// Send the file content as the response
+		return response()->streamDownload(function () use ($ascii) {
+			echo $ascii;
+		}, 'results.txt');
+	}
 }

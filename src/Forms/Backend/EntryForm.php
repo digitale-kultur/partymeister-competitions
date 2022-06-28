@@ -2,9 +2,12 @@
 
 namespace Partymeister\Competitions\Forms\Backend;
 
+use Illuminate\Support\Str;
 use Kris\LaravelFormBuilder\Form;
 use Partymeister\Competitions\Models\Competition;
 use Partymeister\Competitions\Models\Entry;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Intl\Countries;
 
 /**
@@ -27,9 +30,11 @@ class EntryForm extends Form
         }
 
         $files = [];
+	    $playableFiles = [];
         if ($this->getModel() instanceof Entry) {
             foreach ($this->getModel()->ordered_files as $file) {
-                $files[$file->id] = $file->created_at.' - '.$file->file_name;
+	            $files[$file->id] = $file->created_at.' - '.$file->file_name;
+	            $playableFiles[$file->id] = $file->created_at.' - '.$file->file_name;
             }
         }
 
@@ -77,6 +82,26 @@ class EntryForm extends Form
                  'empty_value' => trans('partymeister-competitions::backend/entries.choose'),
                  'choices'     => $files,
              ])
+	        ->add('playable_file_id_1', 'select', [
+		        'label' => trans('partymeister-competitions::backend/entries.playable_file_name') . " 1",
+		        'empty_value' => trans('partymeister-competitions::backend/entries.choose_playable'),
+		        'choices' => $playableFiles,
+	        ])
+	        ->add('playable_file_id_2', 'select', [
+		        'label' => trans('partymeister-competitions::backend/entries.playable_file_name') . " 2",
+		        'empty_value' => trans('partymeister-competitions::backend/entries.choose_playable'),
+		        'choices' => $playableFiles,
+	        ])
+	        ->add('playable_file_id_3', 'select', [
+		        'label' => trans('partymeister-competitions::backend/entries.playable_file_name') . " 3",
+		        'empty_value' => trans('partymeister-competitions::backend/entries.choose_playable'),
+		        'choices' => $playableFiles,
+	        ])
+	        ->add('playable_file_id_4', 'select', [
+		        'label' => trans('partymeister-competitions::backend/entries.playable_file_name') . " 4",
+		        'empty_value' => trans('partymeister-competitions::backend/entries.choose_playable'),
+		        'choices' => $playableFiles,
+	        ])
              ->add('discord_name', 'text', ['label' => trans('partymeister-competitions::backend/entries.discord_name')])
              ->add('author_name', 'text', ['label' => trans('partymeister-competitions::backend/entries.name')])
              ->add('author_email', 'text', ['label' => trans('partymeister-competitions::backend/entries.email')])

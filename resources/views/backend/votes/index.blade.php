@@ -20,6 +20,7 @@
                 {!! link_to_route('backend.competition_prizes.export.prizesheet', trans('partymeister-competitions::backend/competition_prizes.prizesheet'), ['prizesheet' => true, 'receipt' => true], ['class' => 'dropdown-item']) !!}
                 {!! link_to_route('backend.competition_prizes.export.prizesheet', trans('partymeister-competitions::backend/competition_prizes.prizesheet_only'), ['prizesheet' => true], ['class' => 'dropdown-item']) !!}
                 {!! link_to_route('backend.competition_prizes.export.prizesheet', trans('partymeister-competitions::backend/competition_prizes.receipts_only'), ['receipt' => true], ['class' => 'dropdown-item']) !!}
+                {!! link_to_route('backend.competition_prizes.export.ascii', trans('partymeister-competitions::backend/competition_prizes.ascii_file'), ['ascii' => true], ['class' => 'dropdown-item']) !!}
             </div>
         </div>
     @endif
