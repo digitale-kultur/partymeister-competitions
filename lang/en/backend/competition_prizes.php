@@ -16,5 +16,6 @@ return [
     'prizesheet'      => 'Prizesheet and receipts',
     'prizesheet_only' => 'Prizesheet',
     'receipts_only'   => 'Receipts',
+    'ascii_file'      => 'ASCII',
     'downloads'       => 'Downloads',
 ];

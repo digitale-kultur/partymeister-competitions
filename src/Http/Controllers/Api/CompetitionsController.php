@@ -8,6 +8,9 @@ use Partymeister\Competitions\Http\Resources\CompetitionCollection;
 use Partymeister\Competitions\Http\Resources\CompetitionResource;
 use Partymeister\Competitions\Models\Competition;
 use Partymeister\Competitions\Services\CompetitionService;
+use Illuminate\Support\Arr;
+use Motor\Backend\Models\Permission;
+use Partymeister\Competitions\Models\LiveVote;
 
 /**
  * Class CompetitionsController
@@ -256,6 +259,9 @@ class CompetitionsController extends ApiController
         $result = CompetitionService::update($record, $request)
                                     ->getResult();
 
+	    foreach (LiveVote::all() as $liveVote) {
+		    $liveVote->delete();
+	    }
         return (new CompetitionResource($result))->additional(['message' => 'Competition updated']);
     }
 

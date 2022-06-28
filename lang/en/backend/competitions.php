@@ -19,8 +19,10 @@ return [
     'prizegiving_sort_position_short' => 'PG Pos.',
     'upload_enabled'                  => 'Upload enabled',
     'voting_enabled'                  => 'Voting enabled',
+    'livevoting_enabled'                  => 'Livevoting enabled',
     'upload_disabled'                 => 'Upload disabled',
     'voting_disabled'                 => 'Voting disabled',
+    'livevoting_disabled'                 => 'Livevoting disabled',
 
     'actions'                           => 'Actions',
     'status'                            => 'Status',

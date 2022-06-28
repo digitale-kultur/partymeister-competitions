@@ -7,6 +7,7 @@ use Partymeister\Competitions\Http\Requests\Backend\EntryRequest;
 use Partymeister\Competitions\Http\Resources\EntryCollection;
 use Partymeister\Competitions\Http\Resources\EntryResource;
 use Partymeister\Competitions\Models\Entry;
+use Partymeister\Competitions\Models\LiveVote;
 use Partymeister\Competitions\Services\EntryService;
 
 /**
@@ -253,8 +254,22 @@ class EntriesController extends ApiController
      */
     public function update(EntryRequest $request, Entry $record)
     {
-        $result = EntryService::update($record, $request)
-                              ->getResult();
+        $result = EntryService::update($record, $request)->getResult();
+
+	    foreach (LiveVote::all() as $liveVote) {
+		    $liveVote->delete();
+	    }
+
+	    if(strpos($request->getContent(), 'enable_livevoting=true') !== false) {
+		    if($record) {
+			    $liveVote = new LiveVote();
+			    $liveVote->competition_id = $record->competition_id;
+			    $liveVote->entry_id       = $record->id;
+			    $liveVote->sort_position  = $record->sort_position;
+			    $liveVote->save();
+			    $result->enable_livevoting = true;
+		    }
+	    }
 
         return (new EntryResource($result))->additional(['message' => 'Entry updated']);
     }

@@ -174,6 +174,24 @@
             });
         });
 
+        $('.change-entry-livevote').click(function (e) {
+          e.preventDefault();
+          var that = this;
+          $.ajax({
+            type: 'PATCH',
+            url: '<?php echo e(action('\Partymeister\Competitions\Http\Controllers\Api\EntriesController@index')); ?>/' + $(this).data('entry') + '?api_token=' + apiToken,
+            data: {enable_livevoting: true}
+          }).done(function (results) {
+            switchCssClass(that, results.data.enable_livevoting, $(that).data('class'), $(that).data('class-alternate'));
+            toastr.options = {progressBar: true};
+            if (results.data.enable_livevoting === true) {
+              toastr.success('Enable Live-Voting', '<?php echo e(trans('motor-backend::backend/global.flash.success')); ?>');
+            } else {
+              toastr.success('Disabled Live-Voting', '<?php echo e(trans('motor-backend::backend/global.flash.success')); ?>');
+            }
+          });
+        });
+
         $('.change-entry-status').click(function (e) {
             e.preventDefault();
 

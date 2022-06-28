@@ -27,6 +27,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property int $id
  * @property int|null $competition_id
  * @property int|null $final_file_media_id
+ * @property int|null $playable_file_id_1
+ * @property int|null $playable_file_id_2
+ * @property int|null $playable_file_id_3
+ * @property int|null $playable_file_id_4
  * @property int|null $visitor_id
  * @property string $title
  * @property string $author
@@ -179,6 +183,10 @@ class Entry extends Model implements HasMedia
         'composer_city',
         'composer_country_iso_3166_1',
         'final_file_media_id',
+	    'playable_file_id_1',
+	    'playable_file_id_2',
+	    'playable_file_id_3',
+	    'playable_file_id_4',
         'status',
         'discord_name',
         'has_explicit_content',

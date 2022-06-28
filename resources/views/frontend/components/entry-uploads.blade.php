@@ -51,7 +51,7 @@
 
         <div class="@boxWrapper box-primary">
             <div class="@boxHeader with-border">
-                <h3 class="box-title">{{ trans('partymeister-competitions::backend/entries.file_info') }}</h3>
+                <h3 class="box-title">{{ trans('partymeister-competitions::backend/entries.file_info') }} (LIMIT: 2048 MB)</h3>
             </div>
             <div class="@boxBody">
                 <div class="row">
