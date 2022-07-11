@@ -8,6 +8,7 @@ use Motor\Backend\Http\Resources\BaseResource;
 use Motor\Backend\Http\Resources\MediaResource;
 use Partymeister\Competitions\Models\Vote;
 use Partymeister\Core\Http\Resources\VisitorResource;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @OA\Schema(
@@ -278,6 +279,8 @@ class EntryResource extends BaseResource
             'has_explicit_content'                        => (boolean) $this->has_explicit_content,
             'needs_content_check'                         => (boolean) $this->needs_content_check,
             'composer_not_member_of_copyright_collective' => (boolean) $this->composer_not_member_of_copyright_collective,
+            'final_file'                                  => Media::find($this->final_file_media_id),
+            'playable_file_name'                          => $this->playable_file_name,
             'author_name'                                 => $this->author_name,
             'author_email'                                => $this->author_email,
             'author_phone'                                => $this->author_phone,
