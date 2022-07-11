@@ -8,6 +8,7 @@ use Motor\Backend\Http\Resources\BaseResource;
 use Motor\Backend\Http\Resources\MediaResource;
 use Partymeister\Competitions\Models\Vote;
 use Partymeister\Core\Http\Resources\VisitorResource;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @OA\Schema(
@@ -280,15 +281,17 @@ class EntryResource extends BaseResource
             'running_time'                                => $this->running_time,
             'options'                                     => OptionResource::collection($this->options),
             'custom_option'                               => $this->custom_option,
-            'allow_release'                               => (bool) $this->allow_release,
-            'is_remote'                                   => (bool) $this->is_remote,
+            'allow_release'                               => (boolean) $this->allow_release,
+            'is_remote'                                   => (boolean) $this->is_remote,
+            'is_recorded'                                 => (boolean) $this->is_recorded,
+            'is_prepared'                                 => (boolean) $this->is_prepared,
+            'upload_enabled'                              => (boolean) $this->upload_enabled,
+            'has_explicit_content'                        => (boolean) $this->has_explicit_content,
+            'needs_content_check'                         => (boolean) $this->needs_content_check,
+            'composer_not_member_of_copyright_collective' => (boolean) $this->composer_not_member_of_copyright_collective,
+            'final_file'                                  => Media::find($this->final_file_media_id),
+            'playable_file_name'                          => $this->playable_file_name,
             'remote_type'                                 => $this->remote_type,
-            'is_recorded'                                 => (bool) $this->is_recorded,
-            'is_prepared'                                 => (bool) $this->is_prepared,
-            'upload_enabled'                              => (bool) $this->upload_enabled,
-            'has_explicit_content'                        => (bool) $this->has_explicit_content,
-            'needs_content_check'                         => (bool) $this->needs_content_check,
-            'composer_not_member_of_copyright_collective' => (bool) $this->composer_not_member_of_copyright_collective,
             'author_name'                                 => $this->author_name,
             'author_email'                                => $this->author_email,
             'author_phone'                                => $this->author_phone,
