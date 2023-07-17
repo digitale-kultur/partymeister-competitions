@@ -31,7 +31,7 @@ class CompetitionsController extends Controller
 
         $service = CompetitionService::collection($grid);
         $grid->setFilter($service->getFilter());
-        $paginator = $service->getPaginator();
+	$paginator = $service->getPaginator();
 
         return view('partymeister-competitions::backend.competitions.index', compact('paginator', 'grid'));
     }

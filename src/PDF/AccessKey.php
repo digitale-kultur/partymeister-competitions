@@ -17,6 +17,7 @@ class AccessKey extends PDF
         $this->paginator = $paginator;
 
         $this->setMargins(5, 5, 5);
+        $this->AddStyle('URL', 'Courier', '', 12);
         $this->AddStyle('Accesskey', 'Courier', 'B', 14);
         $this->setAutoPageBreak(false);
         $this->setTemplate('logo', resource_path('assets/pdf/partymeister-competitions-accesskey'));
@@ -24,7 +25,6 @@ class AccessKey extends PDF
 
     public function generate()
     {
-        $this->SetStyle('Accesskey');
         $this->addPage();
         foreach ($this->paginator as $key => $row) {
             if ($key % 2 == 0) {
@@ -34,7 +34,10 @@ class AccessKey extends PDF
             }
             $this->useTemplate('logo', 10 + $x_offset, $this->getY(), 30);
             $y = $this->getY();
-            $this->multiCell(100, 20, $row->access_key, 0, 'L', 0, 1, $x_offset + 45, $y + 7);
+            $this->SetStyle('URL');
+            $this->multiCell(100, 20, "https://party.evoke.eu", 0, 'L', 0, 1, $x_offset + 45, $y + 6);
+            $this->SetStyle('Accesskey');
+            $this->multiCell(100, 20, $row->access_key, 0, 'L', 0, 1, $x_offset + 45, $y + 12);
             $this->setY($y);
 
             if ($key % 2 == 1) {
